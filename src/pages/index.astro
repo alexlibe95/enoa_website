@@ -1,0 +1,196 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import { Waves, Wind, Zap, Droplets, ArrowRight } from 'lucide-astro';
+---
+
+<MainLayout 
+  title="Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών - ENOA"
+  description="Ο πρώτος ναυτικός όμιλος της Αθήνας. Μέλος ολυμπιονικών αθλητών από το 1965. Κωπηλασία, ιστιοπλοΐα, κάνοε καγιάκ και κολύμβηση."
+>
+  <!-- Hero Section -->
+  <HeroSection />
+
+  <!-- About Section - Clean & Simple -->
+  <section class="py-20 bg-slate-50 dark:bg-slate-700">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+          Τα Αθλήματά μας
+        </h2>
+        <p class="text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto font-medium">
+          Προσφέρουμε εκπαίδευση σε τέσσερα κυρίως ναυτικά αθλήματα από το 1965
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Clean Sport Cards -->
+        <div class="bg-white dark:bg-slate-600 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-500 hover:shadow-md transition-shadow">
+          <div class="bg-blue-700 rounded-lg p-3 w-12 h-12 mb-4 flex items-center justify-center">
+            <Waves class="h-6 w-6 text-white" />
+          </div>
+          <h3 class="text-lg font-bold text-black mb-2">Κωπηλασία</h3>
+          <p class="text-gray-800 text-sm font-medium">
+            Δύναμη, τεχνική και συγχρονισμός στο αρχαιότερο ναυτικό άθλημα.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-600 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-500 hover:shadow-md transition-shadow">
+          <div class="bg-blue-700 rounded-lg p-3 w-12 h-12 mb-4 flex items-center justify-center">
+            <Wind class="h-6 w-6 text-white" />
+          </div>
+          <h3 class="text-lg font-bold text-black mb-2">Ιστιοπλοΐα</h3>
+          <p class="text-gray-800 text-sm font-medium">
+            Ελευθερία και τέχνη στη θάλασσα με την αξιοποίηση των ανέμων.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-600 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-500 hover:shadow-md transition-shadow">
+          <div class="bg-blue-700 rounded-lg p-3 w-12 h-12 mb-4 flex items-center justify-center">
+            <Zap class="h-6 w-6 text-white" />
+          </div>
+          <h3 class="text-lg font-bold text-black mb-2">Κάνοε Καγιάκ</h3>
+          <p class="text-gray-800 text-sm font-medium">
+            Ταχύτητα και ευελιξία σε ποτάμια, λίμνες και θάλασσα.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-600 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-500 hover:shadow-md transition-shadow">
+          <div class="bg-blue-700 rounded-lg p-3 w-12 h-12 mb-4 flex items-center justify-center">
+            <Droplets class="h-6 w-6 text-white" />
+          </div>
+          <h3 class="text-lg font-bold text-black mb-2">Κολύμβηση</h3>
+          <p class="text-gray-800 text-sm font-medium">
+            Η βάση όλων των ναυτικών αθλημάτων και βασική δεξιότητα.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Section - Clean -->
+  <section class="py-20 bg-white dark:bg-slate-800">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-black mb-4">
+          Νέα & Ανακοινώσεις
+        </h2>
+        <p class="text-lg text-gray-800 font-medium">
+          Μείνετε ενημερωμένοι με τις τελευταίες εξελίξεις του ομίλου
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- News Cards - These will be dynamic from CMS -->
+        <article class="bg-slate-50 dark:bg-slate-600 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-500 hover:shadow-md transition-shadow">
+          <img 
+            src="/images/news-1.svg" 
+            alt="Τμήματα κωπηλασίας για ηλικίες 11-15 ετών"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="text-sm text-blue-700 dark:text-blue-400 font-semibold mb-2">20 Δεκεμβρίου 2024</div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+              Νέα Τμήματα Κωπηλασίας
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300 text-sm mb-4 font-medium">
+              Ανοίγουν νέα τμήματα κωπηλασίας για αθλητές 11-15 ετών με έμπειρους προπονητές.
+            </p>
+            <a 
+              href="/news/rowing-classes-youth"
+              class="inline-flex items-center text-blue-700 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold text-sm"
+            >
+              Διαβάστε περισσότερα
+              <ArrowRight class="ml-1 h-4 w-4" />
+            </a>
+          </div>
+        </article>
+
+        <article class="bg-slate-50 dark:bg-slate-600 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-500 hover:shadow-md transition-shadow">
+          <img 
+            src="/images/news-2.svg" 
+            alt="Απονομή επαίνου στον Ε.Ν.Ο.Α."
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="text-sm text-blue-700 dark:text-blue-400 font-semibold mb-2">15 Νοεμβρίου 2024</div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+              Τιμητική Διάκριση για τον ΕΝΟΑ
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300 text-sm mb-4 font-medium">
+              Ο όμιλός μας τιμήθηκε για τη συνεχή προσφορά του στα ναυτικά αθλήματα.
+            </p>
+            <a 
+              href="/news/patriarch-award"
+              class="inline-flex items-center text-blue-700 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold text-sm"
+            >
+              Διαβάστε περισσότερα
+              <ArrowRight class="ml-1 h-4 w-4" />
+            </a>
+          </div>
+        </article>
+
+        <article class="bg-slate-50 dark:bg-slate-600 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-500 hover:shadow-md transition-shadow">
+          <img 
+            src="/images/news-3.svg" 
+            alt="Νέες προπονήσεις ιστιοπλοΐας"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="text-sm text-blue-700 dark:text-blue-400 font-semibold mb-2">5 Νοεμβρίου 2024</div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+              Νέα Προγράμματα Ιστιοπλοΐας
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300 text-sm mb-4 font-medium">
+              Νέα τμήματα ιστιοπλοΐας για όλες τις ηλικίες με έμπειρους προπονητές.
+            </p>
+            <a 
+              href="/news/sailing-training"
+              class="inline-flex items-center text-blue-700 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold text-sm"
+            >
+              Διαβάστε περισσότερα
+              <ArrowRight class="ml-1 h-4 w-4" />
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center mt-12">
+        <a 
+          href="/news"
+          class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors"
+        >
+          Όλα τα νέα
+          <ArrowRight class="ml-2 h-5 w-5" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clean CTA Section -->
+  <section class="py-16 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+              <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Γίνετε μέλος του ΕΝΟΑ
+        </h2>
+        <p class="text-xl text-slate-300 dark:text-slate-400 mb-8">
+          Ανακαλύψτε τα ναυτικά αθλήματα και γίνετε μέρος της οικογένειάς μας
+        </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/contact"
+          class="inline-flex items-center px-8 py-4 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors"
+        >
+          Επικοινωνία
+          <ArrowRight class="ml-2 h-5 w-5" />
+        </a>
+        <a 
+          href="/about"
+          class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-slate-900 transition-colors"
+        >
+          Μάθετε περισσότερα
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

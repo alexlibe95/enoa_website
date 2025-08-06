@@ -1,0 +1,247 @@
+---
+import { Anchor, Menu, X, Globe } from 'lucide-astro';
+
+const menuItems = [
+  { 
+    name: 'Ο Όμιλος', 
+    href: '/about',
+    submenu: [
+      { name: 'Ιστορικό', href: '/history' },
+      { name: 'Διοικητικό Συμβούλιο', href: '/board' },
+      { name: 'Διακρίσεις', href: '/achievements' }
+    ]
+  },
+  { 
+    name: 'Αθλήματα', 
+    href: '/sports',
+    submenu: [
+      { name: 'Κωπηλασία', href: '/sports/rowing' },
+      { name: 'Ιστιοπλοΐα', href: '/sports/sailing' },
+      { name: 'Κάνοε Καγιάκ', href: '/sports/canoe-kayak' },
+      { name: 'Κολύμβηση', href: '/sports/swimming' }
+    ]
+  },
+  { name: 'Νέα', href: '/news' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'Μέλη', href: '/members' },
+  { name: 'Επικοινωνία', href: '/contact' }
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="bg-white dark:bg-slate-800 shadow-lg sticky top-0 z-50 w-full">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 min-w-0">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center min-w-0">
+        <a href="/" class="flex items-center space-x-2 sm:space-x-3 min-w-0">
+          <img 
+            src="/images/enoa-logo-white.png" 
+            alt="ΈΝΟΑ Logo" 
+            class="h-8 sm:h-10 w-auto object-contain filter invert dark:invert-0 flex-shrink-0"
+          />
+          <div class="flex flex-col min-w-0">
+            <span class="font-bold text-base sm:text-lg nav-text-dark nav-text-light">ENOA</span>
+            <span class="text-xs nav-text-dark nav-text-light font-bold truncate hidden md:block lg:hidden xl:block">Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden lg:block">
+        <div class="ml-6 xl:ml-10 flex items-baseline space-x-2 xl:space-x-4">
+          {menuItems.map((item) => (
+            <div class="relative group">
+              <a 
+                href={item.href}
+                class={`px-2 xl:px-3 py-2 rounded-md text-sm font-bold transition-colors duration-200 ${
+                  currentPath === item.href || currentPath.startsWith(item.href + '/')
+                    ? 'text-blue-700 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-300'
+                    : 'nav-text-dark nav-text-light hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+                }`}
+              >
+                {item.name}
+              </a>
+              
+              {item.submenu && (
+                <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-slate-700 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div class="py-1">
+                    {item.submenu.map((subitem) => (
+                                         <a
+                     href={subitem.href}
+                     class="block px-4 py-2 text-sm nav-text-dark nav-text-light font-bold hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200"
+                   >
+                        {subitem.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Language Toggle & Mobile Menu Button -->
+      <div class="flex items-center space-x-2">
+        <!-- Language Toggle -->
+        <button 
+          id="language-toggle"
+          class="p-2 rounded-md nav-text-dark nav-text-light hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200"
+          aria-label="Toggle Language"
+        >
+          <Globe class="h-5 w-5" />
+        </button>
+        
+        <!-- Dark Mode Toggle -->
+        <button 
+          id="theme-toggle"
+          class="p-2 rounded-md nav-text-dark nav-text-light hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200"
+          aria-label="Toggle Theme"
+        >
+          <svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <svg class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+
+        <!-- Mobile menu button -->
+        <button 
+          id="mobile-menu-button"
+          class="lg:hidden p-2 rounded-md nav-text-dark nav-text-light hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200"
+          aria-label="Toggle Menu"
+        >
+          <Menu class="h-6 w-6 block" id="menu-icon" />
+          <X class="h-6 w-6 hidden" id="close-icon" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden pb-4">
+      <div class="space-y-1">
+        {menuItems.map((item) => (
+          <div>
+            <a 
+              href={item.href}
+              class={`block px-3 py-2 rounded-md text-base font-bold transition-colors duration-200 ${
+                currentPath === item.href || currentPath.startsWith(item.href + '/')
+                  ? 'text-blue-700 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-300'
+                  : 'nav-text-dark nav-text-light hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+              }`}
+            >
+              {item.name}
+            </a>
+            {item.submenu && (
+              <div class="ml-4 space-y-1">
+                {item.submenu.map((subitem) => (
+                  <a
+                    href={subitem.href}
+                    class="block px-3 py-2 text-sm nav-text-dark nav-text-light font-bold hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200"
+                  >
+                    {subitem.name}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script is:inline>
+  // Theme toggle - single execution to prevent double clicks
+  (function() {
+    let navigationInitialized = false;
+    
+    function initNavigation() {
+      if (navigationInitialized) {
+        console.log('🚫 Navigation already initialized, skipping');
+        return;
+      }
+      
+      console.log('🎯 Initializing navigation...');
+      navigationInitialized = true;
+      
+      const themeToggle = document.getElementById('theme-toggle');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      
+      // Theme toggle
+      if (themeToggle) {
+        console.log('✅ Theme toggle button found');
+        
+        // Clear any existing onclick
+        themeToggle.onclick = null;
+        
+        // Define the toggle function
+        const toggleTheme = function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          
+          console.log('🌙 Theme toggle clicked!');
+          const html = document.documentElement;
+          const isDark = html.classList.contains('dark');
+          
+          console.log('Current state - isDark:', isDark);
+          
+          if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            console.log('☀️ Switched to light theme');
+          } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            console.log('🌙 Switched to dark theme');
+          }
+          
+          // Log current classes for debugging
+          console.log('HTML classes:', html.className);
+        };
+        
+        // Add single event listener
+        themeToggle.addEventListener('click', toggleTheme, { once: false });
+        
+        // Mark the button as initialized to prevent duplicate listeners
+        themeToggle.dataset.initialized = 'true';
+        
+      } else {
+        console.log('❌ Theme toggle button NOT found');
+      }
+      
+      // Mobile menu toggle
+      if (mobileMenuButton && mobileMenu) {
+        console.log('✅ Mobile menu elements found');
+        mobileMenuButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          const isHidden = mobileMenu.classList.contains('hidden');
+          
+          if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            menuIcon?.classList.add('hidden');
+            closeIcon?.classList.remove('hidden');
+          } else {
+            mobileMenu.classList.add('hidden');
+            menuIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
+          }
+        });
+      }
+    }
+
+    // Single initialization
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNavigation);
+    } else {
+      initNavigation();
+    }
+  })();
+</script>
+

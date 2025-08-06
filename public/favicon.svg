@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0369a1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f766e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="45" fill="url(#gradient)"/>
+  <!-- Anchor symbol -->
+  <g fill="white" transform="translate(50,50)">
+    <!-- Anchor ring -->
+    <circle cx="0" cy="-15" r="6" fill="none" stroke="white" stroke-width="3"/>
+    <!-- Anchor shaft -->
+    <rect x="-1.5" y="-9" width="3" height="30" fill="white"/>
+    <!-- Anchor arms -->
+    <path d="M-12,15 L-8,19 L0,15 L8,19 L12,15 L8,11 L0,15 L-8,11 Z" fill="white"/>
+  </g>
+</svg>

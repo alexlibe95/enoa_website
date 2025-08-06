@@ -1,0 +1,174 @@
+backend:
+  name: git-gateway
+  branch: main
+  squash_merges: true
+
+# when using the default proxy server port
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+# Greek localization
+locale: 'el'
+
+collections:
+  # Pages collection
+  - name: "pages"
+    label: "Σελίδες"
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Τίτλος", name: "title", widget: "string"}
+      - {label: "Περιγραφή", name: "description", widget: "text", required: false}
+      - {label: "Εικόνα", name: "image", widget: "image", required: false}
+      - {label: "Ημερομηνία Δημοσίευσης", name: "publishDate", widget: "datetime"}
+      - {label: "Κείμενο", name: "body", widget: "markdown"}
+
+  # Sports collection
+  - name: "sports"
+    label: "Αθλήματα"
+    folder: "content/sports"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Τίτλος", name: "title", widget: "string"}
+      - {label: "Περιγραφή", name: "description", widget: "text"}
+      - {label: "Εικόνα", name: "image", widget: "image"}
+      - {label: "Εικονίδιο", name: "icon", widget: "string", hint: "Όνομα εικονιδίου από Lucide"}
+      - {label: "Σειρά", name: "order", widget: "number", default: 1}
+      - {label: "Ενεργό", name: "featured", widget: "boolean", default: true}
+      - label: "Πληροφορίες"
+        name: "info"
+        widget: "object"
+        fields:
+          - {label: "Ώρες Προπονήσεων", name: "trainingHours", widget: "string", required: false}
+          - {label: "Προπονητής", name: "coach", widget: "string", required: false}
+          - {label: "Επαφή", name: "contact", widget: "string", required: false}
+      - {label: "Κείμενο", name: "body", widget: "markdown"}
+
+  # News collection
+  - name: "news"
+    label: "Νέα"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Τίτλος", name: "title", widget: "string"}
+      - {label: "Περιγραφή", name: "description", widget: "text"}
+      - {label: "Εικόνα", name: "image", widget: "image"}
+      - {label: "Ημερομηνία Δημοσίευσης", name: "publishDate", widget: "datetime"}
+      - {label: "Συγγραφέας", name: "author", widget: "string", default: "ΕΝΟΑ"}
+      - {label: "Κατηγορία", name: "category", widget: "select", options: ["Ανακοινώσεις", "Αγώνες", "Επιτυχίες", "Γενικά"]}
+      - {label: "Επιλεγμένο", name: "featured", widget: "boolean", default: false}
+      - {label: "Κείμενο", name: "body", widget: "markdown"}
+
+  # Board Members collection
+  - name: "board"
+    label: "Διοικητικό Συμβούλιο"
+    folder: "content/board"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Όνομα", name: "name", widget: "string"}
+      - {label: "Θέση", name: "position", widget: "string"}
+      - {label: "Φωτογραφία", name: "photo", widget: "image", required: false}
+      - {label: "Βιογραφικό", name: "bio", widget: "text", required: false}
+      - {label: "Email", name: "email", widget: "string", required: false}
+      - {label: "Τηλέφωνο", name: "phone", widget: "string", required: false}
+      - {label: "Σειρά", name: "order", widget: "number", default: 1}
+
+  # Gallery collection
+  - name: "gallery"
+    label: "Gallery"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Τίτλος", name: "title", widget: "string"}
+      - {label: "Περιγραφή", name: "description", widget: "text", required: false}
+      - {label: "Ημερομηνία", name: "date", widget: "datetime"}
+      - {label: "Κατηγορία", name: "category", widget: "select", options: ["Κωπηλασία", "Ιστιοπλοΐα", "Κάνοε Καγιάκ", "Κολύμβηση", "Εκδηλώσεις", "Γενικά"]}
+      - label: "Φωτογραφίες"
+        name: "images"
+        widget: "list"
+        fields:
+          - {label: "Εικόνα", name: "image", widget: "image"}
+          - {label: "Λεζάντα", name: "caption", widget: "string", required: false}
+
+  # Settings
+  - name: "settings"
+    label: "Ρυθμίσεις"
+    files:
+      - name: "general"
+        label: "Γενικές Ρυθμίσεις"
+        file: "content/settings/general.yml"
+        fields:
+          - {label: "Όνομα Ιστότοπου", name: "siteName", widget: "string"}
+          - {label: "Περιγραφή Ιστότοπου", name: "siteDescription", widget: "text"}
+          - {label: "URL Ιστότοπου", name: "siteUrl", widget: "string"}
+          - {label: "Logo", name: "logo", widget: "image"}
+          - label: "Επικοινωνία"
+            name: "contact"
+            widget: "object"
+            fields:
+              - {label: "Διεύθυνση", name: "address", widget: "text"}
+              - {label: "Τηλέφωνο", name: "phone", widget: "string"}
+              - {label: "Email", name: "email", widget: "string"}
+              - {label: "Χάρτης", name: "mapUrl", widget: "string", required: false}
+          - label: "Social Media"
+            name: "social"
+            widget: "object"
+            fields:
+              - {label: "Facebook", name: "facebook", widget: "string", required: false}
+              - {label: "Instagram", name: "instagram", widget: "string", required: false}
+              - {label: "Twitter", name: "twitter", widget: "string", required: false}
+              - {label: "YouTube", name: "youtube", widget: "string", required: false}
+
+      - name: "navigation"
+        label: "Μενού Πλοήγησης"
+        file: "content/settings/navigation.yml"
+        fields:
+          - label: "Κύριο Μενού"
+            name: "mainMenu"
+            widget: "list"
+            fields:
+              - {label: "Όνομα", name: "name", widget: "string"}
+              - {label: "URL", name: "url", widget: "string"}
+              - label: "Υπομενού"
+                name: "submenu"
+                widget: "list"
+                required: false
+                fields:
+                  - {label: "Όνομα", name: "name", widget: "string"}
+                  - {label: "URL", name: "url", widget: "string"}
+
+      - name: "homepage"
+        label: "Αρχική Σελίδα"
+        file: "content/settings/homepage.yml"
+        fields:
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {label: "Τίτλος", name: "title", widget: "string"}
+              - {label: "Υπότιτλος", name: "subtitle", widget: "string"}
+              - {label: "Περιγραφή", name: "description", widget: "text"}
+              - {label: "Εικόνα Φόντου", name: "backgroundImage", widget: "image"}
+          - label: "Επιλεγμένα Αθλήματα"
+            name: "featuredSports"
+            widget: "list"
+            max: 4
+            fields:
+              - {label: "Άθλημα", name: "sport", widget: "string"}
+              - {label: "Περιγραφή", name: "description", widget: "text"}
+              - {label: "Εικονίδιο", name: "icon", widget: "string"}
+          - label: "Στατιστικά"
+            name: "stats"
+            widget: "list"
+            max: 3
+            fields:
+              - {label: "Τίτλος", name: "label", widget: "string"}
+              - {label: "Αριθμός", name: "value", widget: "string"}
+              - {label: "Εικονίδιο", name: "icon", widget: "string"}

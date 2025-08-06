@@ -1,0 +1,116 @@
+---
+import { Anchor, Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-astro';
+---
+
+<footer class="bg-slate-900 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Club Info -->
+      <div class="space-y-4">
+        <div class="flex items-center space-x-3">
+          <img 
+            src="/images/enoa-logo-white.png" 
+            alt="ΕΝΟΑ Logo" 
+            class="h-12 w-auto object-contain"
+          />
+          <div>
+            <h3 class="text-lg font-bold text-white">ENOA</h3>
+            <p class="text-sm text-slate-200 font-medium">Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών</p>
+          </div>
+        </div>
+        <p class="text-slate-200 text-sm leading-relaxed font-medium">
+          Ο πρώτος ναυτικός όμιλος της Αθήνας. Μέλος ολυμπιονικών αθλητών από το 1965.
+        </p>
+        <div class="flex space-x-4">
+          <a 
+            href="https://facebook.com/enoa.gr" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-slate-200 hover:text-blue-400 transition-colors duration-200"
+            aria-label="Facebook"
+          >
+            <Facebook class="h-5 w-5" />
+          </a>
+          <a 
+            href="https://instagram.com/enoa_official" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-slate-200 hover:text-blue-400 transition-colors duration-200"
+            aria-label="Instagram"
+          >
+            <Instagram class="h-5 w-5" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-bold text-blue-400">Γρήγοροι Σύνδεσμοι</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Ο Όμιλος</a></li>
+          <li><a href="/history" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Ιστορικό</a></li>
+          <li><a href="/board" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Διοικητικό Συμβούλιο</a></li>
+          <li><a href="/achievements" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Διακρίσεις</a></li>
+          <li><a href="/members" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Μέλη</a></li>
+        </ul>
+      </div>
+
+      <!-- Sports -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-bold text-blue-400">Αθλήματα</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/sports/rowing" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Κωπηλασία</a></li>
+          <li><a href="/sports/sailing" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Ιστιοπλοΐα</a></li>
+          <li><a href="/sports/canoe-kayak" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Κάνοε Καγιάκ</a></li>
+          <li><a href="/sports/swimming" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Κολύμβηση</a></li>
+          <li><a href="/news" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">Νέα</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-bold text-blue-400">Επικοινωνία</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start space-x-3">
+            <MapPin class="h-4 w-4 text-blue-400 mt-0.5 flex-shrink-0" />
+            <div class="text-slate-200 font-medium">
+              <p>Λεωφ. Ποσειδώνος 18</p>
+              <p>Παλαιό Φάληρο 17561</p>
+              <p>Αθήνα, Ελλάδα</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <Phone class="h-4 w-4 text-blue-400 flex-shrink-0" />
+            <a href="tel:+302109851234" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">
+              +30 210 985 1234
+            </a>
+          </div>
+          <div class="flex items-center space-x-3">
+            <Mail class="h-4 w-4 text-blue-400 flex-shrink-0" />
+            <a href="mailto:info@enoa.gr" class="text-slate-200 hover:text-white transition-colors duration-200 font-medium">
+              info@enoa.gr
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-slate-700 mt-8 pt-8 text-center">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-slate-300 text-sm font-medium">
+          © {new Date().getFullYear()} Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών. Όλα τα δικαιώματα διατηρούνται.
+        </p>
+        <div class="flex space-x-6 text-sm">
+          <a href="/privacy" class="text-slate-300 hover:text-white transition-colors duration-200 font-medium">
+            Προστασία Προσωπικών Δεδομένων
+          </a>
+          <a href="/terms" class="text-slate-300 hover:text-white transition-colors duration-200 font-medium">
+            Όροι Χρήσης
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
