@@ -1,0 +1,154 @@
+---
+// Admin page for Decap CMS - completely self-contained
+---
+
+<!DOCTYPE html>
+<html lang="el">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Διαχείριση Περιεχομένου - ENOA</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    
+    <!-- Netlify Identity for authentication -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <style>
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .cms-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #f8fafc;
+        font-family: 'Inter', sans-serif;
+      }
+      
+      .cms-loading h1 {
+        color: #1e40af;
+        font-size: 24px;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nc-root"></div>
+
+    <script src="https://unpkg.com/decap-cms@^3.1.0/dist/decap-cms.js"></script>
+    
+    <script>
+      // Initialize CMS immediately when script loads
+      function initCMS() {
+        try {
+          // Clear any existing content
+          const root = document.getElementById('nc-root');
+          if (root) {
+            root.innerHTML = '';
+          }
+          
+          CMS.init({
+            config: {
+              backend: {
+                name: 'git-gateway',
+                branch: 'main'
+              },
+              local_backend: true,
+              media_folder: 'public/images',
+              public_folder: '/images',
+              locale: 'el',
+              collections: [
+                {
+                  name: 'pages',
+                  label: 'Σελίδες',
+                  folder: 'content/pages',
+                  create: true,
+                  slug: '{{slug}}',
+                  fields: [
+                    {label: 'Τίτλος', name: 'title', widget: 'string'},
+                    {label: 'Περιγραφή', name: 'description', widget: 'text', required: false},
+                    {label: 'Κείμενο', name: 'body', widget: 'markdown'}
+                  ]
+                },
+                {
+                  name: 'news',
+                  label: 'Νέα',
+                  folder: 'content/news',
+                  create: true,
+                  slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+                  fields: [
+                    {label: 'Τίτλος', name: 'title', widget: 'string'},
+                    {label: 'Περίληψη', name: 'excerpt', widget: 'text'},
+                    {label: 'Εικόνα', name: 'image', widget: 'image'},
+                    {label: 'Ημερομηνία', name: 'publishDate', widget: 'datetime'},
+                    {label: 'Κείμενο', name: 'body', widget: 'markdown'}
+                  ]
+                },
+                {
+                  name: 'sports',
+                  label: 'Αθλήματα',
+                  folder: 'content/sports',
+                  create: true,
+                  slug: '{{slug}}',
+                  fields: [
+                    {label: 'Όνομα', name: 'title', widget: 'string'},
+                    {label: 'Περιγραφή', name: 'description', widget: 'text'},
+                    {label: 'Εικόνα', name: 'image', widget: 'image'},
+                    {label: 'Κείμενο', name: 'body', widget: 'markdown'}
+                  ]
+                }
+              ]
+            }
+          });
+
+          // Greek localization
+          CMS.registerLocale('el', {
+            auth: {
+              login: 'Σύνδεση',
+              loggingIn: 'Συνδέεστε...'
+            },
+            app: {
+              header: {
+                content: 'Περιεχόμενο',
+                media: 'Πολυμέσα'
+              }
+            }
+          });
+
+          console.log('✅ CMS initialized successfully');
+        } catch (error) {
+          console.error('❌ CMS initialization failed:', error);
+          const root = document.getElementById('nc-root');
+          if (root) {
+            root.innerHTML = '<div style="padding: 20px; text-align: center;"><h1>Σφάλμα φόρτωσης CMS</h1><p>' + error.message + '</p></div>';
+          }
+        }
+      }
+
+      // Initialize when DOM and CMS are ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          setTimeout(initCMS, 500);
+        });
+      } else {
+        setTimeout(initCMS, 500);
+      }
+
+      // Authentication handling
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

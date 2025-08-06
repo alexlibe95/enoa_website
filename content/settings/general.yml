@@ -1,19 +1,21 @@
-siteName: "Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών - ΕΝΟΑ"
-siteDescription: "Ο πρώτος ναυτικός όμιλος της Αθήνας. Μέλος ολυμπιονικών αθλητών από το 1965. Κωπηλασία, ιστιοπλοΐα, κάνοε καγιάκ και κολύμβηση."
+siteName: "Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών"
+siteDescription: "Ο πρώτος ναυτικός όμιλος της Αθήνας από το 1965. Κωπηλασία, ιστιοπλοΐα, κάνοε καγιάκ και κολύμβηση."
 siteUrl: "https://www.enoa.gr"
-logo: "/images/enoa-logo.svg"
+logo: "/images/enoa-logo-white.png"
+
+address:
+  street: "Λεωφ. Ποσειδώνος 18"
+  city: "Παλαιό Φάληρο"
+  zipCode: "17561"
+  country: "Ελλάδα"
 
 contact:
-  address: |
-    Λεωφ. Ποσειδώνος 18
-    Παλαιό Φάληρο 17561
-    Αθήνα, Ελλάδα
   phone: "+30 210 985 1234"
   email: "info@enoa.gr"
-  mapUrl: "https://maps.google.com/embed?pb=!1m18!1m12!1m3!1d3145.123456789!2d23.6789!3d37.9123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sENOA!5e0!3m2!1sen!2sgr!4v1234567890123"
-
-social:
   facebook: "https://facebook.com/enoa.gr"
   instagram: "https://instagram.com/enoa_official"
-  twitter: ""
-  youtube: ""
+
+hours: |
+  Δευτέρα - Παρασκευή: 09:00 - 21:00
+  Σάββατο: 09:00 - 17:00
+  Κυριακή: Κλειστά
