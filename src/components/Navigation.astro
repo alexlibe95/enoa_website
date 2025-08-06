@@ -161,11 +161,11 @@ const currentPath = Astro.url.pathname;
     
     function initNavigation() {
       if (navigationInitialized) {
-        console.log('🚫 Navigation already initialized, skipping');
+        
         return;
       }
       
-      console.log('🎯 Initializing navigation...');
+      
       navigationInitialized = true;
       
       const themeToggle = document.getElementById('theme-toggle');
@@ -176,7 +176,7 @@ const currentPath = Astro.url.pathname;
       
       // Theme toggle
       if (themeToggle) {
-        console.log('✅ Theme toggle button found');
+        
         
         // Clear any existing onclick
         themeToggle.onclick = null;
@@ -186,24 +186,23 @@ const currentPath = Astro.url.pathname;
           event.preventDefault();
           event.stopPropagation();
           
-          console.log('🌙 Theme toggle clicked!');
+          
           const html = document.documentElement;
           const isDark = html.classList.contains('dark');
           
-          console.log('Current state - isDark:', isDark);
+          
           
           if (isDark) {
             html.classList.remove('dark');
             localStorage.setItem('theme', 'light');
-            console.log('☀️ Switched to light theme');
+            
           } else {
             html.classList.add('dark');
             localStorage.setItem('theme', 'dark');
-            console.log('🌙 Switched to dark theme');
+            
           }
           
-          // Log current classes for debugging
-          console.log('HTML classes:', html.className);
+          
         };
         
         // Add single event listener
@@ -213,12 +212,12 @@ const currentPath = Astro.url.pathname;
         themeToggle.dataset.initialized = 'true';
         
       } else {
-        console.log('❌ Theme toggle button NOT found');
+        
       }
       
       // Mobile menu toggle
       if (mobileMenuButton && mobileMenu) {
-        console.log('✅ Mobile menu elements found');
+        
         mobileMenuButton.addEventListener('click', function(event) {
           event.preventDefault();
           const isHidden = mobileMenu.classList.contains('hidden');

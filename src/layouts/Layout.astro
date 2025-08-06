@@ -56,17 +56,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         const currentTheme = theme || systemTheme;
         
-        console.log('Initial theme setup:', { theme, systemTheme, currentTheme });
+
         
         if (currentTheme === 'dark') {
           document.documentElement.classList.add('dark');
-          console.log('Applied dark theme on load');
+
         } else {
           document.documentElement.classList.remove('dark');
-          console.log('Applied light theme on load');
+
         }
       } catch (e) {
-        console.log('Theme initialization error:', e);
+
       }
     </script>
   </head>
