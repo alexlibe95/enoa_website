@@ -92,6 +92,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #f1f5f9 !important;
 }
 
+/* Force CTA button hover text color for maximum contrast */
+.bg-slate-900 a:hover {
+  color: #0f172a !important;
+}
+
+/* Specific fix for learn more button */
+#learn-more-btn:hover {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+}
+
 /* Hero background image - modern and elegant */
 .hero-bg {
   background-color: #1e293b !important; /* Elegant dark fallback */

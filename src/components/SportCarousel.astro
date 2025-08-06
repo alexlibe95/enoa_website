@@ -1,0 +1,301 @@
+---
+// SportCarousel.astro - Auto-rotating carousel for sports images
+---
+
+<section class="relative py-0 bg-slate-50 dark:bg-slate-800 overflow-hidden">
+  <div class="w-full">
+    <!-- Carousel Container -->
+    <div id="sport-carousel" class="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
+      
+      <!-- Slide 1: Κωπηλασία (Rowing) -->
+      <div class="carousel-slide absolute inset-0 opacity-100 transition-all duration-1000 ease-in-out transform scale-105">
+        <img 
+          src="/images/kopilasia-pa.jpg" 
+          alt="Κωπηλασία" 
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 xl:p-12 text-white bg-gradient-to-t from-black/60 to-transparent rounded-b-lg">
+          <div class="max-w-none xl:max-w-4xl xl:mx-auto">
+            <h3 class="text-3xl md:text-4xl xl:text-5xl font-bold mb-3 xl:mb-4">Κωπηλασία</h3>
+            <p class="text-lg md:text-xl text-gray-200 mb-4 max-w-2xl xl:max-w-3xl">
+              Δύναμη, τεχνική και συγχρονισμός στο αρχαιότερο ναυτικό άθλημα που συνδυάζει φυσική κατάσταση με πειθαρχία.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: Ιστιοπλοΐα (Sailing) -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-105">
+        <img 
+          src="/images/slider-sailing.jpg" 
+          alt="Ιστιοπλοΐα" 
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 xl:p-12 text-white bg-gradient-to-t from-black/60 to-transparent rounded-b-lg">
+          <div class="max-w-none xl:max-w-4xl xl:mx-auto">
+            <h3 class="text-3xl md:text-4xl xl:text-5xl font-bold mb-3 xl:mb-4">Ιστιοπλοΐα</h3>
+            <p class="text-lg md:text-xl text-gray-200 mb-4 max-w-2xl xl:max-w-3xl">
+              Ελευθερία και τέχνη στη θάλασσα με την αξιοποίηση των ανέμων για μια μοναδική εμπειρία πλοήγησης.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Κάνοε Καγιάκ (Canoe Kayak) -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-105">
+        <img 
+          src="/images/slider-rowing.jpg" 
+          alt="Κάνοε Καγιάκ" 
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 xl:p-12 text-white bg-gradient-to-t from-black/60 to-transparent rounded-b-lg">
+          <div class="max-w-none xl:max-w-4xl xl:mx-auto">
+            <h3 class="text-3xl md:text-4xl xl:text-5xl font-bold mb-3 xl:mb-4">Κάνοε Καγιάκ</h3>
+            <p class="text-lg md:text-xl text-gray-200 mb-4 max-w-2xl xl:max-w-3xl">
+              Ταχύτητα και ευελιξία σε ποτάμια, λίμνες και θάλασσα με την τεχνική του παγαίου για κάθε επίπεδο.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Κολύμβηση (Swimming) -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-105">
+        <img 
+          src="/images/kolimvisi-pa.jpg" 
+          alt="Κολύμβηση" 
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 xl:p-12 text-white bg-gradient-to-t from-black/60 to-transparent rounded-b-lg">
+          <div class="max-w-none xl:max-w-4xl xl:mx-auto">
+            <h3 class="text-3xl md:text-4xl xl:text-5xl font-bold mb-3 xl:mb-4">Κολύμβηση</h3>
+            <p class="text-lg md:text-xl text-gray-200 mb-4 max-w-2xl xl:max-w-3xl">
+              Η βάση όλων των ναυτικών αθλημάτων και βασική δεξιότητα που αναπτύσσει αντοχή και καρδιαγγειακή υγεία.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Dots -->
+      <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+        <button 
+          class="carousel-dot w-4 h-4 rounded-full bg-white hover:bg-white transition-all duration-300 shadow-lg border-2 border-white/40" 
+          data-slide="0"
+          aria-label="Κωπηλασία"
+        ></button>
+        <button 
+          class="carousel-dot w-4 h-4 rounded-full bg-white/60 hover:bg-white transition-all duration-300 shadow-lg border-2 border-white/40" 
+          data-slide="1"
+          aria-label="Ιστιοπλοΐα"
+        ></button>
+        <button 
+          class="carousel-dot w-4 h-4 rounded-full bg-white/60 hover:bg-white transition-all duration-300 shadow-lg border-2 border-white/40" 
+          data-slide="2"
+          aria-label="Κάνοε Καγιάκ"
+        ></button>
+        <button 
+          class="carousel-dot w-4 h-4 rounded-full bg-white/60 hover:bg-white transition-all duration-300 shadow-lg border-2 border-white/40" 
+          data-slide="3"
+          aria-label="Κολύμβηση"
+        ></button>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button 
+        class="carousel-prev absolute left-4 top-1/2 transform -translate-y-1/2 w-14 h-14 bg-white/30 hover:bg-white/50 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 group z-10 shadow-lg"
+        aria-label="Προηγούμενο άθλημα"
+      >
+        <svg class="w-7 h-7 text-white group-hover:scale-110 transition-transform drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      
+      <button 
+        class="carousel-next absolute right-4 top-1/2 transform -translate-y-1/2 w-14 h-14 bg-white/30 hover:bg-white/50 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 group z-10 shadow-lg"
+        aria-label="Επόμενο άθλημα"
+      >
+        <svg class="w-7 h-7 text-white group-hover:scale-110 transition-transform drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+
+
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', function() {
+  // Prevent duplicate initialization
+  if (window.carouselInitialized) return;
+  window.carouselInitialized = true;
+
+  const carousel = document.getElementById('sport-carousel');
+  if (!carousel) return;
+
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const dots = carousel.querySelectorAll('.carousel-dot');
+  const prevButton = carousel.querySelector('.carousel-prev');
+  const nextButton = carousel.querySelector('.carousel-next');
+
+  let currentSlide = 0;
+  let autoSlideInterval;
+  let isTransitioning = false;
+  const slideInterval = 5000; // 5 seconds
+  const sports = ['κωπηλασία', 'ιστιοπλοΐα', 'κάνοε-καγιάκ', 'κολύμβηση'];
+
+  function updateSlide(index) {
+    if (isTransitioning) return; // Prevent rapid transitions
+    
+    isTransitioning = true;
+    
+    // Smooth animation with scale and opacity
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        // Active slide: fade in and scale to normal
+        slide.style.opacity = '1';
+        slide.style.transform = 'scale(1)';
+        slide.style.zIndex = '2';
+      } else {
+        // Inactive slides: fade out and scale up slightly
+        slide.style.opacity = '0';
+        slide.style.transform = 'scale(1.05)';
+        slide.style.zIndex = '1';
+      }
+    });
+
+    // Update dots
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.remove('bg-white/60');
+        dot.classList.add('bg-white');
+      } else {
+        dot.classList.remove('bg-white');
+        dot.classList.add('bg-white/60');
+      }
+    });
+
+    currentSlide = index;
+    
+    // Allow next transition after slide animation completes
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 1000);
+  }
+
+  function nextSlide() {
+    if (isTransitioning) return;
+    const next = (currentSlide + 1) % slides.length;
+    updateSlide(next);
+  }
+
+  function prevSlide() {
+    if (isTransitioning) return;
+    const prev = (currentSlide - 1 + slides.length) % slides.length;
+    updateSlide(prev);
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide(); // Clear any existing intervals
+    autoSlideInterval = setInterval(() => {
+      if (!isTransitioning) {
+        nextSlide();
+      }
+    }, slideInterval);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideInterval) {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = null;
+    }
+  }
+
+  // Event listeners
+  prevButton?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isTransitioning) return;
+    
+    stopAutoSlide();
+    prevSlide();
+    
+    setTimeout(() => {
+      startAutoSlide();
+    }, 1200);
+  });
+
+  nextButton?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isTransitioning) return;
+    
+    stopAutoSlide();
+    nextSlide();
+    
+    setTimeout(() => {
+      startAutoSlide();
+    }, 1200);
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isTransitioning || index === currentSlide) return;
+      
+      stopAutoSlide();
+      updateSlide(index);
+      
+      setTimeout(() => {
+        startAutoSlide();
+      }, 1200);
+    });
+  });
+
+  // Add click navigation to slides (navigate to sport page)
+  slides.forEach((slide, index) => {
+    slide.style.cursor = 'pointer';
+    slide.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') return; // Don't navigate if clicking buttons
+      // For future implementation: navigate to sport-specific page
+      console.log(`Navigate to ${sports[index]} page`);
+      // window.location.href = `/sports/${sports[index]}`;
+    });
+  });
+
+  // Pause on hover
+  carousel.addEventListener('mouseenter', () => {
+    stopAutoSlide();
+  });
+  
+  carousel.addEventListener('mouseleave', () => {
+    if (!isTransitioning) {
+      startAutoSlide();
+    }
+  });
+
+  // Initialize - ensure first slide starts with correct scale
+  slides[0].style.transform = 'scale(1)';
+  slides[0].style.opacity = '1';
+  slides[0].style.zIndex = '2';
+  
+  updateSlide(0);
+  startAutoSlide();
+});
+
+// Re-initialize on Astro page transitions
+document.addEventListener('astro:page-load', function() {
+  window.carouselInitialized = false;
+  // Trigger the DOMContentLoaded logic again
+  const event = new Event('DOMContentLoaded');
+  document.dispatchEvent(event);
+});
+</script>
