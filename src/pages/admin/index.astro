@@ -11,6 +11,9 @@
     <title>Διαχείριση Περιεχομένου - ENOA</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     
+    <!-- CSP for CMS scripts -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; object-src 'none';" />
+    
     <!-- Netlify Identity for authentication -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
@@ -40,10 +43,31 @@
   <body>
     <div id="nc-root"></div>
 
-    <script src="https://unpkg.com/decap-cms@^3.1.0/dist/decap-cms.js"></script>
+    <script src="https://unpkg.com/decap-cms@^3.1.0/dist/decap-cms.js" onload="checkCMSLoaded()" onerror="handleCMSError()"></script>
     
     <script>
-      // Initialize CMS immediately when script loads
+      function handleCMSError() {
+        console.error('❌ Failed to load Decap CMS script');
+        document.getElementById('nc-root').innerHTML = '<div style="padding: 20px; text-align: center;"><h1>Σφάλμα Φόρτωσης</h1><p>Δεν ήταν δυνατή η φόρτωση του CMS. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο.</p></div>';
+      }
+
+      function checkCMSLoaded() {
+        if (typeof CMS !== 'undefined') {
+          console.log('✅ CMS script loaded successfully');
+          initCMS();
+        } else {
+          console.error('❌ CMS object not available');
+          setTimeout(function() {
+            if (typeof CMS !== 'undefined') {
+              initCMS();
+            } else {
+              handleCMSError();
+            }
+          }, 1000);
+        }
+      }
+
+      // Initialize CMS when ready
       function initCMS() {
         try {
           // Clear any existing content
