@@ -11,8 +11,8 @@
     <title>Διαχείριση Περιεχομένου - ENOA</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     
-    <!-- CSP for CMS scripts -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; object-src 'none';" />
+    <!-- CSP for CMS scripts - more permissive for admin -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com https://cdn.jsdelivr.net https://www.unpkg.com; style-src 'self' 'unsafe-inline'; object-src 'none';" />
   </head>
   <body>
     <!-- CMS will mount here -->
@@ -35,10 +35,11 @@
       document.addEventListener('DOMContentLoaded', function() {
         console.log('🔄 Loading CMS scripts...');
         
-        // Try multiple CDNs for Decap CMS
+        // Try multiple CDNs for Decap CMS with working URLs
         const cmsUrls = [
-          'https://unpkg.com/decap-cms@3.0.14/dist/decap-cms.js',
-          'https://cdn.jsdelivr.net/npm/decap-cms@3.0.14/dist/decap-cms.js'
+          'https://unpkg.com/decap-cms@latest/dist/decap-cms.js',
+          'https://cdn.jsdelivr.net/npm/decap-cms@latest/dist/decap-cms.js',
+          'https://unpkg.com/netlify-cms@latest/dist/netlify-cms.js'
         ];
         
         // Try to load Netlify Identity (optional for local dev)
