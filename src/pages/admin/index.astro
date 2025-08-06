@@ -1,5 +1,5 @@
 ---
-// Clean Decap CMS implementation
+// Simple and stable Decap CMS implementation
 ---
 
 <!DOCTYPE html>
@@ -11,154 +11,141 @@
     <title>Διαχείριση Περιεχομένου - ENOA</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     
-    <!-- CSP for CMS scripts - more permissive for admin -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com https://cdn.jsdelivr.net https://www.unpkg.com; style-src 'self' 'unsafe-inline'; object-src 'none';" />
+    <!-- Static script loading - more stable -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
+    
+    <style>
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      #nc-root {
+        min-height: 100vh;
+      }
+      
+      .loading-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #f8fafc;
+        font-family: 'Inter', sans-serif;
+        color: #1e40af;
+        font-size: 18px;
+      }
+    </style>
   </head>
   <body>
-    <!-- CMS will mount here -->
-    <div id="nc-root"></div>
+    <div id="nc-root">
+      <div class="loading-message">Φόρτωση CMS...</div>
+    </div>
 
     <script>
-      // Load scripts dynamically to handle CORS better
-      function loadScript(src, callback) {
-        const script = document.createElement('script');
-        script.src = src;
-        script.onload = callback;
-        script.onerror = function() {
-          console.error('Failed to load script:', src);
-          callback(new Error('Script load failed'));
-        };
-        document.head.appendChild(script);
-      }
-
-      // Load scripts in sequence
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log('🔄 Loading CMS scripts...');
+      // Simple, stable initialization
+      window.addEventListener('DOMContentLoaded', function() {
+        // Wait for scripts to load
+        let attempts = 0;
+        const maxAttempts = 50;
         
-        // Try multiple CDNs for Decap CMS with working URLs
-        const cmsUrls = [
-          'https://unpkg.com/decap-cms@latest/dist/decap-cms.js',
-          'https://cdn.jsdelivr.net/npm/decap-cms@latest/dist/decap-cms.js',
-          'https://unpkg.com/netlify-cms@latest/dist/netlify-cms.js'
-        ];
-        
-        // Try to load Netlify Identity (optional for local dev)
-        loadScript('https://identity.netlify.com/v1/netlify-identity-widget.js', function(error) {
-          if (error) {
-            console.warn('⚠️ Netlify Identity not loaded (OK for local dev)');
+        function initCMS() {
+          attempts++;
+          
+          if (typeof CMS !== 'undefined') {
+            // Clear loading message
+            document.getElementById('nc-root').innerHTML = '';
+            
+            // Initialize CMS with minimal config
+            CMS.init({
+              config: {
+                backend: {
+                  name: 'git-gateway',
+                  branch: 'main'
+                },
+                local_backend: true,
+                media_folder: 'public/images',
+                public_folder: '/images',
+                site_url: 'https://www.enoa.gr',
+                display_url: 'https://www.enoa.gr',
+                logo_url: '/images/enoa-logo-white.png',
+                locale: 'el',
+                collections: [
+                  {
+                    name: 'pages',
+                    label: 'Σελίδες',
+                    folder: 'content/pages',
+                    create: true,
+                    slug: '{{slug}}',
+                    extension: 'md',
+                    fields: [
+                      { label: 'Τίτλος', name: 'title', widget: 'string', required: true },
+                      { label: 'Περιγραφή', name: 'description', widget: 'text', required: false },
+                      { label: 'Ημερομηνία', name: 'publishDate', widget: 'datetime', default: '{{now}}' },
+                      { label: 'Κείμενο', name: 'body', widget: 'markdown', required: true }
+                    ]
+                  },
+                  {
+                    name: 'news',
+                    label: 'Νέα & Ανακοινώσεις',
+                    folder: 'content/news',
+                    create: true,
+                    slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+                    extension: 'md',
+                    sort: 'publishDate:desc',
+                    fields: [
+                      { label: 'Τίτλος', name: 'title', widget: 'string', required: true },
+                      { label: 'Περίληψη', name: 'excerpt', widget: 'text', required: true },
+                      { label: 'Εικόνα', name: 'image', widget: 'image', required: true },
+                      { label: 'Κατηγορία', name: 'category', widget: 'select', options: ['Γενικά', 'Κωπηλασία', 'Ιστιοπλοΐα', 'Κάνοε Καγιάκ', 'Κολύμβηση'], default: 'Γενικά' },
+                      { label: 'Ημερομηνία', name: 'publishDate', widget: 'datetime', default: '{{now}}' },
+                      { label: 'Κείμενο', name: 'body', widget: 'markdown', required: true }
+                    ]
+                  },
+                  {
+                    name: 'sports',
+                    label: 'Αθλήματα',
+                    folder: 'content/sports',
+                    create: true,
+                    slug: '{{slug}}',
+                    extension: 'md',
+                    fields: [
+                      { label: 'Όνομα Αθλήματος', name: 'title', widget: 'string', required: true },
+                      { label: 'Περιγραφή', name: 'description', widget: 'text', required: true },
+                      { label: 'Εικόνα', name: 'image', widget: 'image', required: true },
+                      { label: 'Σειρά', name: 'order', widget: 'number', value_type: 'int', default: 1 },
+                      { label: 'Κείμενο', name: 'body', widget: 'markdown', required: true }
+                    ]
+                  }
+                ]
+              }
+            });
+            
+          } else if (attempts < maxAttempts) {
+            // Retry in 100ms
+            setTimeout(initCMS, 100);
           } else {
-            console.log('✅ Netlify Identity loaded');
+            // Show error after max attempts
+            document.getElementById('nc-root').innerHTML = `
+              <div class="loading-message" style="color: #dc3545;">
+                <div style="text-align: center;">
+                  <h2>Σφάλμα φόρτωσης CMS</h2>
+                  <p>Δεν ήταν δυνατή η φόρτωση του συστήματος διαχείρισης.</p>
+                  <button onclick="location.reload()" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">
+                    Επανα-φόρτωση
+                  </button>
+                </div>
+              </div>
+            `;
           }
-        });
-
-        // Load CMS with fallback
-        function loadCMS(urlIndex = 0) {
-          if (urlIndex >= cmsUrls.length) {
-            showError('Δεν ήταν δυνατή η φόρτωση του CMS από κανένα CDN');
-            return;
-          }
-
-          loadScript(cmsUrls[urlIndex], function(error) {
-            if (error) {
-              console.warn(`Failed to load from ${cmsUrls[urlIndex]}, trying next...`);
-              loadCMS(urlIndex + 1);
-            } else {
-              console.log('✅ CMS script loaded from:', cmsUrls[urlIndex]);
-              setTimeout(initializeCMS, 500);
-            }
-          });
         }
-
-        loadCMS();
+        
+        // Start initialization
+        initCMS();
       });
 
-      function initializeCMS() {
-        try {
-          // Verify CMS is available
-          if (typeof CMS === 'undefined') {
-            throw new Error('CMS object not available');
-          }
-
-          console.log('🔧 Initializing CMS...');
-
-          // Initialize with minimal config to avoid conflicts
-          CMS.init({
-            config: {
-              backend: {
-                name: 'git-gateway',
-                branch: 'main'
-              },
-              local_backend: true,
-              media_folder: 'public/images',
-              public_folder: '/images',
-              locale: 'el',
-              collections: [
-                {
-                  name: 'pages',
-                  label: 'Σελίδες',
-                  folder: 'content/pages',
-                  create: true,
-                  slug: '{{slug}}',
-                  fields: [
-                    { label: 'Τίτλος', name: 'title', widget: 'string' },
-                    { label: 'Κείμενο', name: 'body', widget: 'markdown' }
-                  ]
-                },
-                {
-                  name: 'news',
-                  label: 'Νέα',
-                  folder: 'content/news',
-                  create: true,
-                  slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
-                  fields: [
-                    { label: 'Τίτλος', name: 'title', widget: 'string' },
-                    { label: 'Περίληψη', name: 'excerpt', widget: 'text' },
-                    { label: 'Ημερομηνία', name: 'publishDate', widget: 'datetime' },
-                    { label: 'Κείμενο', name: 'body', widget: 'markdown' }
-                  ]
-                }
-              ]
-            }
-          });
-
-          // Greek localization
-          CMS.registerLocale('el', {
-            auth: {
-              login: 'Σύνδεση',
-              loggingIn: 'Συνδέεστε...'
-            },
-            app: {
-              header: {
-                content: 'Περιεχόμενο',
-                media: 'Πολυμέσα'
-              }
-            }
-          });
-
-          console.log('✅ CMS initialized successfully');
-
-        } catch (error) {
-          console.error('❌ CMS initialization failed:', error);
-          showError(`Σφάλμα αρχικοποίησης: ${error.message}`);
-        }
-      }
-
-      function showError(message) {
-        const root = document.getElementById('nc-root');
-        if (root) {
-          root.innerHTML = `
-            <div style="padding: 40px; text-align: center; font-family: Arial, sans-serif;">
-              <h1 style="color: #dc3545;">Σφάλμα CMS</h1>
-              <p>${message}</p>
-              <button onclick="location.reload()" style="padding: 10px 20px; margin-top: 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                Επανα-φόρτωση
-              </button>
-            </div>
-          `;
-        }
-      }
-
-      // Netlify Identity handling
+      // Netlify Identity handling (if available)
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
@@ -170,5 +157,4 @@
       }
     </script>
   </body>
-</html>
 </html>
