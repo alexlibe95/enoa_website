@@ -1,5 +1,5 @@
 ---
-// Simple and stable Decap CMS implementation
+// Standard Decap CMS - working approach
 ---
 
 <!DOCTYPE html>
@@ -10,142 +10,103 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>Διαχείριση Περιεχομένου - ENOA</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
-    
-    <!-- Static script loading - more stable -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
-    
-    <style>
-      body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      
-      #nc-root {
-        min-height: 100vh;
-      }
-      
-      .loading-message {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background: #f8fafc;
-        font-family: 'Inter', sans-serif;
-        color: #1e40af;
-        font-size: 18px;
-      }
-    </style>
   </head>
   <body>
-    <div id="nc-root">
-      <div class="loading-message">Φόρτωση CMS...</div>
-    </div>
+    <!-- This will be the mount point for Decap CMS -->
+    <div id="nc-root"></div>
+
+    <!-- Load Decap CMS -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
     <script>
-      // Simple, stable initialization
-      window.addEventListener('DOMContentLoaded', function() {
-        // Wait for scripts to load
-        let attempts = 0;
-        const maxAttempts = 50;
-        
+      // Tell Decap CMS where to find the config
+      window.CMS_MANUAL_INIT = true;
+
+      // Wait for CMS to be available
+      document.addEventListener('DOMContentLoaded', async function() {
         function initCMS() {
-          attempts++;
-          
           if (typeof CMS !== 'undefined') {
-            // Clear loading message
-            document.getElementById('nc-root').innerHTML = '';
-            
-            // Initialize CMS with minimal config
-            CMS.init({
-              config: {
-                backend: {
-                  name: 'git-gateway',
-                  branch: 'main'
-                },
-                local_backend: true,
-                media_folder: 'public/images',
-                public_folder: '/images',
-                site_url: 'https://www.enoa.gr',
-                display_url: 'https://www.enoa.gr',
-                logo_url: '/images/enoa-logo-white.png',
-                locale: 'el',
-                collections: [
-                  {
-                    name: 'pages',
-                    label: 'Σελίδες',
-                    folder: 'content/pages',
-                    create: true,
-                    slug: '{{slug}}',
-                    extension: 'md',
-                    fields: [
-                      { label: 'Τίτλος', name: 'title', widget: 'string', required: true },
-                      { label: 'Περιγραφή', name: 'description', widget: 'text', required: false },
-                      { label: 'Ημερομηνία', name: 'publishDate', widget: 'datetime', default: '{{now}}' },
-                      { label: 'Κείμενο', name: 'body', widget: 'markdown', required: true }
-                    ]
-                  },
-                  {
-                    name: 'news',
-                    label: 'Νέα & Ανακοινώσεις',
-                    folder: 'content/news',
-                    create: true,
-                    slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
-                    extension: 'md',
-                    sort: 'publishDate:desc',
-                    fields: [
-                      { label: 'Τίτλος', name: 'title', widget: 'string', required: true },
-                      { label: 'Περίληψη', name: 'excerpt', widget: 'text', required: true },
-                      { label: 'Εικόνα', name: 'image', widget: 'image', required: true },
-                      { label: 'Κατηγορία', name: 'category', widget: 'select', options: ['Γενικά', 'Κωπηλασία', 'Ιστιοπλοΐα', 'Κάνοε Καγιάκ', 'Κολύμβηση'], default: 'Γενικά' },
-                      { label: 'Ημερομηνία', name: 'publishDate', widget: 'datetime', default: '{{now}}' },
-                      { label: 'Κείμενο', name: 'body', widget: 'markdown', required: true }
-                    ]
-                  },
-                  {
-                    name: 'sports',
-                    label: 'Αθλήματα',
-                    folder: 'content/sports',
-                    create: true,
-                    slug: '{{slug}}',
-                    extension: 'md',
-                    fields: [
-                      { label: 'Όνομα Αθλήματος', name: 'title', widget: 'string', required: true },
-                      { label: 'Περιγραφή', name: 'description', widget: 'text', required: true },
-                      { label: 'Εικόνα', name: 'image', widget: 'image', required: true },
-                      { label: 'Σειρά', name: 'order', widget: 'number', value_type: 'int', default: 1 },
-                      { label: 'Κείμενο', name: 'body', widget: 'markdown', required: true }
+            // Load config from the correct path and initialize
+            fetch('/admin/config.yml')
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`Failed to load config: ${response.status}`);
+                }
+                return response.text();
+              })
+              .then(configText => {
+                // Parse YAML manually for basic config or use the config as is
+                CMS.init({
+                  config: {
+                    backend: {
+                      name: 'git-gateway',
+                      branch: 'main'
+                    },
+                    local_backend: true,
+                    media_folder: 'public/images',
+                    public_folder: '/images',
+                    site_url: 'https://www.enoa.gr',
+                    display_url: 'https://www.enoa.gr',
+                    logo_url: '/images/enoa-logo-white.png',
+                    locale: 'el',
+                    collections: [
+                      {
+                        name: 'pages',
+                        label: 'Σελίδες',
+                        folder: 'content/pages',
+                        create: true,
+                        slug: '{{slug}}',
+                        fields: [
+                          { label: 'Τίτλος', name: 'title', widget: 'string' },
+                          { label: 'Κείμενο', name: 'body', widget: 'markdown' }
+                        ]
+                      },
+                      {
+                        name: 'news',
+                        label: 'Νέα',
+                        folder: 'content/news',
+                        create: true,
+                        slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+                        fields: [
+                          { label: 'Τίτλος', name: 'title', widget: 'string' },
+                          { label: 'Περίληψη', name: 'excerpt', widget: 'text' },
+                          { label: 'Εικόνα', name: 'image', widget: 'image' },
+                          { label: 'Ημερομηνία', name: 'publishDate', widget: 'datetime' },
+                          { label: 'Κείμενο', name: 'body', widget: 'markdown' }
+                        ]
+                      },
+                      {
+                        name: 'sports',
+                        label: 'Αθλήματα',
+                        folder: 'content/sports',
+                        create: true,
+                        slug: '{{slug}}',
+                        fields: [
+                          { label: 'Όνομα', name: 'title', widget: 'string' },
+                          { label: 'Περιγραφή', name: 'description', widget: 'text' },
+                          { label: 'Εικόνα', name: 'image', widget: 'image' },
+                          { label: 'Κείμενο', name: 'body', widget: 'markdown' }
+                        ]
+                      }
                     ]
                   }
-                ]
-              }
-            });
-            
-          } else if (attempts < maxAttempts) {
-            // Retry in 100ms
-            setTimeout(initCMS, 100);
+                });
+                console.log('Decap CMS loaded successfully with inline config');
+              })
+              .catch(error => {
+                console.error('Failed to load config:', error);
+                // Fallback: try without external config
+                CMS.init();
+              });
           } else {
-            // Show error after max attempts
-            document.getElementById('nc-root').innerHTML = `
-              <div class="loading-message" style="color: #dc3545;">
-                <div style="text-align: center;">
-                  <h2>Σφάλμα φόρτωσης CMS</h2>
-                  <p>Δεν ήταν δυνατή η φόρτωση του συστήματος διαχείρισης.</p>
-                  <button onclick="location.reload()" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">
-                    Επανα-φόρτωση
-                  </button>
-                </div>
-              </div>
-            `;
+            setTimeout(initCMS, 100);
           }
         }
-        
-        // Start initialization
         initCMS();
       });
 
-      // Netlify Identity handling (if available)
+      // Netlify Identity handling
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
