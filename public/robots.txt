@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+
+# Block admin areas
+Disallow: /admin/
+Disallow: /_astro/
+Disallow: /api/
+
+# Allow search engines to crawl important pages
+Allow: /
+Allow: /about/
+Allow: /activities/
+Allow: /news/
+Allow: /gallery/
+Allow: /contact/
+Allow: /sports/
+
+# Sitemap location
+Sitemap: https://www.enoa.gr/sitemap-index.xml
+
+# Crawl delay (be respectful to server)
+Crawl-delay: 1
+
+# Block specific file types that shouldn't be indexed
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+Disallow: /*.xls$
+Disallow: /*.xlsx$
+
+# Allow important resources
+Allow: /images/
+Allow: /favicon.png
+Allow: /*.css$
+Allow: /*.js$

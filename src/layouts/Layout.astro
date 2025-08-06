@@ -5,39 +5,115 @@ export interface Props {
   title?: string;
   description?: string;
   image?: string;
+  keywords?: string;
+  author?: string;
+  type?: string;
+  noindex?: boolean;
 }
 
-const { title = "Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών - ENOA", description = "Ο πρώτος ναυτικός όμιλος της Αθήνας. Μέλος ολυμπιονικών αθλητών από το 1965. Κωπηλασία, ιστιοπλοΐα, κάνοε καγιάκ και κολύμβηση.", image = "/images/enoa-hero.jpg" } = Astro.props;
+const { 
+  title = "Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών - ENOA", 
+  description = "Ο πρώτος ναυτικός όμιλος της Αθήνας. Μέλος ολυμπιονικών αθλητών από το 1965. Κωπηλασία, ιστιοπλοΐα, κάνοε καγιάκ και κολύμβηση.", 
+  image = "/images/enoa-hero.jpg",
+  keywords = "ναυτικός όμιλος, κωπηλασία, ιστιοπλοΐα, κάνοε καγιάκ, κολύμβηση, Αθήνα, αθλητισμός, ναυτικά αθλήματα, ENOA, Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών",
+  author = "Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών",
+  type = "website",
+  noindex = false
+} = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const fullImageURL = new URL(image, Astro.site);
+
+// Generate structured data for organization
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SportsOrganization",
+  "name": "Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών",
+  "alternateName": "ENOA",
+  "url": "https://www.enoa.gr",
+  "logo": "https://www.enoa.gr/images/enoa-logo-white.png",
+  "image": fullImageURL.href,
+  "description": description,
+  "foundingDate": "1965",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Λεωφ. Ποσειδώνος 18",
+    "addressLocality": "Παλαιό Φάληρο",
+    "postalCode": "17561",
+    "addressRegion": "Αττική",
+    "addressCountry": "GR"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+30-210-985-1234",
+    "contactType": "customer service",
+    "email": "info@enoa.gr"
+  },
+  "sameAs": [
+    "https://facebook.com/enoa.gr",
+    "https://instagram.com/enoa_official"
+  ],
+  "sport": [
+    "Rowing",
+    "Sailing", 
+    "Canoe Kayak",
+    "Swimming"
+  ]
+};
 ---
 
 <!doctype html>
 <html lang="el" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     
-    <!-- SEO -->
+    <!-- SEO Meta Tags -->
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <meta name="language" content="el" />
+    <meta name="geo.region" content="GR-A1" />
+    <meta name="geo.placename" content="Παλαιό Φάληρο, Αθήνα" />
+    <meta name="geo.position" content="37.9368;23.6980" />
+    <meta name="ICBM" content="37.9368, 23.6980" />
+    
+    <!-- Robots and Indexing -->
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
+    <meta name="googlebot" content="index, follow" />
+    <meta name="revisit-after" content="1 days" />
+    
+    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
     
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#1e40af" />
+    
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Ελληνικός Ναυτικός Όμιλος Αιγυπτιωτών" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:image" content={fullImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content="el_GR" />
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@enoa_official" />
+    <meta name="twitter:creator" content="@enoa_official" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullImageURL} />
+    <meta name="twitter:image:alt" content={title} />
     
       <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,8 +121,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   
   <!-- Google Fonts - Modern elegant font for titles -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    
-
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
     
     <!-- Prevent flash of unstyled content (FOUC) for theme -->
     <script is:inline>
